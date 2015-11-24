@@ -31,10 +31,15 @@ public class App {
 	
 
 	public static void main(String[] args) throws IOException {
-		String logFile1 = System.getProperty("user.dir") + "//Testing.csv";
+		String logFile1 = System.getProperty("user.dir") + "//iad.csv";
 	
 
-		SparkConf conf = new SparkConf().setMaster("local[4]").setAppName("MyApp");
+		SparkConf conf = new SparkConf().setMaster("spark://192.168.17.194:7077").setAppName("MyApp");
+
+		String jars[]={"/home/akondra/Desktop/TestSpark/target/TestSpark-0.0.1-SNAPSHOT.jar"};
+		
+		conf.setJars(jars);
+		
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		JavaRDD<String> logdata1 = sc.textFile(logFile1).cache();
 		
